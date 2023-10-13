@@ -7,8 +7,6 @@
 // Execute `rustlings hint structs3` or use the `hint` watch subcommand for a
 // hint.
 
-// I AM NOT DONE
-
 #[derive(Debug)]
 struct Package {
     sender_country: String,
@@ -16,6 +14,9 @@ struct Package {
     weight_in_grams: i32,
 }
 
+// struct是一个关键字，用来定义一个结构体
+// Package是一个结构体，结构体是一个自定义的数据类型，它可以包含多个不同类型的数据
+// impl是一个关键字，用来定义结构体的方法
 impl Package {
     fn new(sender_country: String, recipient_country: String, weight_in_grams: i32) -> Package {
         if weight_in_grams <= 0 {
@@ -29,12 +30,16 @@ impl Package {
         }
     }
 
-    fn is_international(&self) -> ??? {
+    // 是否是国际包裹
+    fn is_international(&self) -> bool {
         // Something goes here...
+        // self是一个关键字，用来表示结构体本身
+        self.sender_country != self.recipient_country
     }
 
-    fn get_fees(&self, cents_per_gram: i32) -> ??? {
+    fn get_fees(&self, cents_per_gram: i32) -> i32 {
         // Something goes here...
+        self.weight_in_grams * cents_per_gram
     }
 }
 
@@ -45,6 +50,9 @@ mod tests {
     #[test]
     #[should_panic]
     fn fail_creating_weightless_package() {
+        // String::from 是一个函数，用来创建一个String类型的对象
+        // 为什么不直接let sender_country = = "Spain"，
+        // 因为这样的话，sender_country的类型就是&str，而不是String
         let sender_country = String::from("Spain");
         let recipient_country = String::from("Austria");
 

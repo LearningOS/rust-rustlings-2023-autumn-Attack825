@@ -20,8 +20,6 @@
 //
 // No hints this time!
 
-// I AM NOT DONE
-
 pub enum Command {
     Uppercase,
     Trim,
@@ -29,14 +27,38 @@ pub enum Command {
 }
 
 mod my_module {
+    // super是父模块，这里的父模块是quiz2
     use super::Command;
 
     // TODO: Complete the function signature!
-    pub fn transformer(input: ???) -> ??? {
+    // Vec<(String, Command)>表示一个元组的vector，元组的第一个元素是String，第二个元素是Command
+    // Vec和vec!是什么关系？vec!是一个宏，用于创建一个vector
+    // transformer是一个函数，接收一个Vec<(String, Command)>，返回一个Vec<String>
+    pub fn transformer(input: Vec<(String, Command)>) -> Vec<String> {
         // TODO: Complete the output declaration!
-        let mut output: ??? = vec![];
+        let mut output: Vec<String> = vec![];
         for (string, command) in input.iter() {
             // TODO: Complete the function body. You can do it!
+            // 通过match匹配command，然后对string进行处理
+            // 如果command是Uppercase，就将string转换为大写
+            // 如果command是Trim，就将string去掉首尾的空格
+            // 如果command是Append，就将string追加n个bar
+            let mut s = string.clone();
+            match command {
+                Command::Uppercase => {
+                    s = s.to_uppercase();
+                }
+                Command::Trim => {
+                    s = s.trim().to_string();
+                }
+                Command::Append(n) => {
+                    for _ in 0..*n {
+                        s.push_str("bar");
+                    }
+                }
+            }
+            // 通过push将处理后的string添加到output中
+            output.push(s);
         }
         output
     }
@@ -45,7 +67,7 @@ mod my_module {
 #[cfg(test)]
 mod tests {
     // TODO: What do we need to import to have `transformer` in scope?
-    use ???;
+    use super::my_module::transformer;
     use super::Command;
 
     #[test]

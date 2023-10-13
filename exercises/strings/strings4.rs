@@ -7,24 +7,26 @@
 //
 // No hints this time!
 
-// I AM NOT DONE
-
+// 只能用于&str类型的参数
 fn string_slice(arg: &str) {
     println!("{}", arg);
 }
+// 只能用于String类型的参数
 fn string(arg: String) {
     println!("{}", arg);
 }
+// String和&str是不同的类型，但是它们都实现了Deref trait，所以可以互相转换
+// "blue"是一个字符串字面量，它的类型是&str
 
 fn main() {
-    ???("blue");
-    ???("red".to_string());
-    ???(String::from("hi"));
-    ???("rust is fun!".to_owned());
-    ???("nice weather".into());
-    ???(format!("Interpolation {}", "Station"));
-    ???(&String::from("abc")[0..1]);
-    ???("  hello there ".trim());
-    ???("Happy Monday!".to_string().replace("Mon", "Tues"));
-    ???("mY sHiFt KeY iS sTiCkY".to_lowercase());
+    string_slice("blue");
+    string("red".to_string());
+    string(String::from("hi"));
+    string("rust is fun!".to_owned());
+    string_slice("nice weather".into());
+    string(format!("Interpolation {}", "Station"));
+    string_slice(&String::from("abc")[0..1]);
+    string_slice("  hello there ".trim());
+    string("Happy Monday!".to_string().replace("Mon", "Tues"));
+    string("mY sHiFt KeY iS sTiCkY".to_lowercase());
 }
