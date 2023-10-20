@@ -11,8 +11,12 @@
 // TODO markers.
 //
 // Execute `rustlings hint cow1` or use the `hint` watch subcommand for a hint.
-
-// I AM NOT DONE
+// 本练习探索了Cow，或者叫做Clone-On-Write类型
+// Cow是一个写时复制的智能指针
+// 它可以包含并提供对借用数据的不可变访问，并在需要变更或所有权时惰性地克隆数据
+// 这个类型被设计用来通过Borrow trait来处理通用的借用数据
+// 本练习的目的是让你知道当把数据传递给Cow时会发生什么
+// 通过在TODO标记处检查Cow::Owned(_)和Cow::Borrowed(_)来修复单元测试
 
 use std::borrow::Cow;
 
@@ -48,7 +52,8 @@ mod tests {
         let slice = [0, 1, 2];
         let mut input = Cow::from(&slice[..]);
         match abs_all(&mut input) {
-            // TODO
+            Cow::Borrowed(_) => Ok(()),
+            _ => Err("Expected borrowed value"),
         }
     }
 
@@ -60,7 +65,8 @@ mod tests {
         let slice = vec![0, 1, 2];
         let mut input = Cow::from(slice);
         match abs_all(&mut input) {
-            // TODO
+            Cow::Owned(_) => Ok(()),
+            _ => Err("Expected owned value"),
         }
     }
 
@@ -72,7 +78,8 @@ mod tests {
         let slice = vec![-1, 0, 1];
         let mut input = Cow::from(slice);
         match abs_all(&mut input) {
-            // TODO
+            Cow::Owned(_) => Ok(()),
+            _ => Err("Expected owned value"),
         }
     }
 }

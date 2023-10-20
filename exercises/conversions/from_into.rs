@@ -15,6 +15,7 @@ struct Person {
 
 // We implement the Default trait to use it as a fallback
 // when the provided string is not convertible into a Person object
+// Default trait是一个trait，它允许我们为类型提供一个默认值
 impl Default for Person {
     fn default() -> Person {
         Person {
@@ -28,6 +29,9 @@ impl Default for Person {
 // Person::from("Mark,20")` to compile Please note that you'll need to parse the
 // age component into a `usize` with something like `"4".parse::<usize>()`. The
 // outcome of this needs to be handled appropriately.
+// 你的任务是完成这个实现，以便行`let p = Person::from("Mark,20")`编译
+// 请注意，您需要使用类似`"4".parse::<usize>()`的东西将年龄组件解析为`usize`。
+// 这个结果需要适当地处理。
 //
 // Steps:
 // 1. If the length of the provided string is 0, then return the default of
@@ -39,11 +43,47 @@ impl Default for Person {
 //    `usize` as the age.
 // If while parsing the age, something goes wrong, then return the default of
 // Person Otherwise, then return an instantiated Person object with the results
+// 1. 如果提供的字符串的长度为0，则返回Person的默认值。
+// 2. 在其中存在的逗号上分割给定的字符串。
+// 3. 从分割操作中提取第一个元素并将其用作名称。
+// 4. 如果名称为空，则返回Person的默认值。
+// 5. 从分割操作中提取其他元素并将其解析为`usize`作为年龄。
+// 如果在解析年龄时出现问题，则返回Person的默认值
+// 否则，返回一个实例化的Person对象与结果
 
-// I AM NOT DONE
-
+// From trait是用于值到值转换的。如果From为类型实现正确，那么Into trait应该相反。
+// impl From<&str> for Person 是指实现From trait，将&str类型转换为Person类型
 impl From<&str> for Person {
     fn from(s: &str) -> Person {
+        if s.len() == 0 {
+            return Person::default();
+        }
+
+        let tmp: Vec<&str> = s.split(',').collect();
+        //s.split(',')是将字符串s按照','分割成多个字符串，然后collect()将多个字符串收集到一个Vec中
+        if tmp.len() < 2 {
+            return Person::default();
+        }
+        if tmp[0].len() == 0 {
+            return Person::default();
+        }
+        if tmp[1].len() == 0 {
+            return Person::default();
+        }
+        if tmp.len() > 2 {
+            return Person::default();
+        }
+        let name = String::from(tmp[0]);
+        if let Ok(age) = tmp[1].parse::<usize>() {
+            if name.len() == 0 {
+                return Person::default();
+            }
+            return Person {
+                name: name,
+                age: age,
+            };
+        }
+        return Person::default();
     }
 }
 

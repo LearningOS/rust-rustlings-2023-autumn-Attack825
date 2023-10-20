@@ -9,12 +9,13 @@
 //
 // Execute `rustlings hint using_as` or use the `hint` watch subcommand for a
 // hint.
-
-// I AM NOT DONE
+// Type casting (类型转换)是通过使用as操作符来完成的。请注意，as操作符不仅用于类型转换。它还有助于重命名导入。
+// 目标是确保除法不会失败编译并返回正确的类型。
 
 fn average(values: &[f64]) -> f64 {
     let total = values.iter().sum::<f64>();
-    total / values.len()
+    // total是f64类型，values.len()是usize类型，我们需要将usize类型转换为f64类型
+    total / values.len() as f64
 }
 
 fn main() {

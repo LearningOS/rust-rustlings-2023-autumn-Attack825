@@ -8,13 +8,17 @@
 //
 // Execute `rustlings hint clippy1` or use the `hint` watch subcommand for a
 // hint.
+// Clippy是一个用于分析代码的lint集合，可以帮助我们发现常见的错误并改进Rust代码。
+// 在这些练习中，当有clippy警告时，代码将无法编译，检查clippy的输出建议来解决练习。
 
-// I AM NOT DONE
 
 use std::f32;
+use std::f32::consts::PI;
 
 fn main() {
-    let pi = 3.14f32;
+    // let pi = 3.14f32;
+    let pi = PI;
+    
     let radius = 5.00f32;
 
     let area = pi * f32::powi(radius, 2);

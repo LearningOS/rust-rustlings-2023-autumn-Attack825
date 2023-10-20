@@ -8,9 +8,10 @@
 // Execute `rustlings hint lifetimes1` or use the `hint` watch subcommand for a
 // hint.
 
-// I AM NOT DONE
+// 需要指定生命周期参数，否则编译器不知道如何检查引用是否有效
+// <'a>是生命周期参数，表示x和y的生命周期参数是一样的
 
-fn longest(x: &str, y: &str) -> &str {
+fn longest<'a>(x: &'a str, y: &'a str) -> &'a str {
     if x.len() > y.len() {
         x
     } else {

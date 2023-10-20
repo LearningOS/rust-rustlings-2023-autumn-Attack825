@@ -11,17 +11,16 @@
 // Execute `rustlings hint iterators5` or use the `hint` watch subcommand for a
 // hint.
 
-// I AM NOT DONE
-
 use std::collections::HashMap;
 
+// derive宏，用于自动实现trait
 #[derive(Clone, Copy, PartialEq, Eq)]
 enum Progress {
     None,
     Some,
     Complete,
 }
-
+// count_for()函数使用for循环来计算map中Progress::Complete的个数
 fn count_for(map: &HashMap<String, Progress>, value: Progress) -> usize {
     let mut count = 0;
     for val in map.values() {
@@ -32,12 +31,14 @@ fn count_for(map: &HashMap<String, Progress>, value: Progress) -> usize {
     count
 }
 
+// count_iterator()函数使用迭代器来计算map中Progress::Complete的个数
 fn count_iterator(map: &HashMap<String, Progress>, value: Progress) -> usize {
     // map is a hashmap with String keys and Progress values.
     // map = { "variables1": Complete, "from_str": None, ... }
-    todo!();
+    map.values().filter(|&x| x == &value).count()
 }
 
+// count_collection_for()函数使用for循环来计算collection中Progress::Complete的个数
 fn count_collection_for(collection: &[HashMap<String, Progress>], value: Progress) -> usize {
     let mut count = 0;
     for map in collection {
@@ -50,11 +51,15 @@ fn count_collection_for(collection: &[HashMap<String, Progress>], value: Progres
     count
 }
 
+// count_collection_iterator()函数使用迭代器来计算collection中Progress::Complete的个数
 fn count_collection_iterator(collection: &[HashMap<String, Progress>], value: Progress) -> usize {
     // collection is a slice of hashmaps.
     // collection = [{ "variables1": Complete, "from_str": None, ... },
     //     { "variables2": Complete, ... }, ... ]
-    todo!();
+    collection
+        .iter()
+        .map(|map| map.values().filter(|&x| x == &value).count())
+        .sum()
 }
 
 #[cfg(test)]

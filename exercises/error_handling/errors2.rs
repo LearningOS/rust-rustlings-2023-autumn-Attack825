@@ -19,16 +19,20 @@
 // Execute `rustlings hint errors2` or use the `hint` watch subcommand for a
 // hint.
 
-// I AM NOT DONE
-
 use std::num::ParseIntError;
 
+// 这里的返回值是Result<i32, ParseIntError>，表示可能返回i32或者ParseIntError
 pub fn total_cost(item_quantity: &str) -> Result<i32, ParseIntError> {
     let processing_fee = 1;
     let cost_per_item = 5;
+    // parse函数将字符串转换为数字，如果转换失败，会返回ParseIntError错误
     let qty = item_quantity.parse::<i32>();
-
-    Ok(qty * cost_per_item + processing_fee)
+    // unwrap是Result的一个方法，如果Result是Ok，则返回Ok中的值，如果是Err，则返回Err中的值
+    if qty.is_err() {
+        return Err(qty.unwrap_err());
+    } else {
+        return Ok(qty.unwrap() * cost_per_item + processing_fee);
+    }
 }
 
 #[cfg(test)]

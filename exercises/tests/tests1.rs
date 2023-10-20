@@ -10,12 +10,12 @@
 // Execute `rustlings hint tests1` or use the `hint` watch subcommand for a
 // hint.
 
-// I AM NOT DONE
+// 这是一个测试函数，测试函数的名字必须以test开头
 
 #[cfg(test)]
 mod tests {
     #[test]
     fn you_can_assert() {
-        assert!();
+        assert!(true);
     }
 }

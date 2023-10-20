@@ -22,7 +22,6 @@
 // Execute `rustlings hint tests5` or use the `hint` watch subcommand for a
 // hint.
 
-// I AM NOT DONE
 
 /// # Safety
 ///
@@ -32,9 +31,16 @@ unsafe fn modify_by_address(address: usize) {
     // code's behavior and the contract of this function. You may use the
     // comment of the test below as your format reference.
     unsafe {
-        todo!("Your code goes here")
+        let p = address as *mut u32;
+        // 用来将address转换为一个指向u32类型的可变指针的，
+        // 然后我们对这个指针进行了解引用，然后对它进行了赋值，所以这个指针必须指向一个合法的u32类型的值，
+        // 所以我们需要将address转换为一个指向u32类型的可变指针
+        // *p表示对指针p进行解引用，然后对它进行赋值
+        *p = 0xAABBCCDD;
     }
 }
+// unsafe是一个关键字，它可以用来标记一个函数或者一个代码块，
+// unsafe的作用是告诉编译器，这里的代码是不安全的，需要程序员自己来保证它的安全性
 
 #[cfg(test)]
 mod tests {
@@ -46,6 +52,10 @@ mod tests {
         // SAFETY: The address is guaranteed to be valid and contains
         // a unique reference to a `u32` local variable.
         unsafe { modify_by_address(&mut t as *mut u32 as usize) };
+        // 上一句是用来调用modify_by_address函数的，这个函数接受一个usize类型的参数，
+        // 然后在函数体中，我们对这个参数进行了解引用，然后对它进行了赋值，
+        // 所以这个参数必须是一个合法的地址，而且这个地址必须包含一个u32类型的值，
+        // 所以我们需要将t的地址转换为usize类型，然后传递给modify_by_address函数
         assert!(t == 0xAABBCCDD);
     }
 }

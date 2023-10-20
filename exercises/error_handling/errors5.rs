@@ -22,14 +22,14 @@
 // Execute `rustlings hint errors5` or use the `hint` watch subcommand for a
 // hint.
 
-// I AM NOT DONE
-
 use std::error;
 use std::fmt;
 use std::num::ParseIntError;
 
 // TODO: update the return type of `main()` to make this compile.
-fn main() -> Result<(), Box<dyn ???>> {
+//   main函数返回的是一个Result，这个Result的Ok值是()，Err值是Box<dyn error::Error>
+// Box<dyn error::Error>表示任何实现了error::Error trait的类型
+fn main() -> Result<(), Box<dyn error::Error>> {
     let pretend_user_input = "42";
     let x: i64 = pretend_user_input.parse()?;
     println!("output={:?}", PositiveNonzeroInteger::new(x)?);
@@ -58,6 +58,7 @@ impl PositiveNonzeroInteger {
 }
 
 // This is required so that `CreationError` can implement `error::Error`.
+// impl fmt::Display for CreationError 是为了实现error::Error trait
 impl fmt::Display for CreationError {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
         let description = match *self {

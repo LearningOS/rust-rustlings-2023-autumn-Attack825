@@ -9,8 +9,6 @@
 // Execute `rustlings hint iterators3` or use the `hint` watch subcommand for a
 // hint.
 
-// I AM NOT DONE
-
 #[derive(Debug, PartialEq, Eq)]
 pub enum DivisionError {
     NotDivisible(NotDivisibleError),
@@ -25,25 +23,43 @@ pub struct NotDivisibleError {
 
 // Calculate `a` divided by `b` if `a` is evenly divisible by `b`.
 // Otherwise, return a suitable error.
+// 如果a能被b整除，则返回a/b，否则返回一个错误
 pub fn divide(a: i32, b: i32) -> Result<i32, DivisionError> {
-    todo!();
+    if b == 0 {
+        return Err(DivisionError::DivideByZero);
+    }
+    if a % b != 0 {
+        return Err(DivisionError::NotDivisible(NotDivisibleError {
+            dividend: a,
+            divisor: b,
+        }));
+    }
+    Ok(a / b)
 }
 
 // Complete the function and return a value of the correct type so the test
 // passes.
 // Desired output: Ok([1, 11, 1426, 3])
-fn result_with_list() -> () {
+fn result_with_list() -> Result<Vec<i32>, DivisionError> {
     let numbers = vec![27, 297, 38502, 81];
-    let division_results = numbers.into_iter().map(|n| divide(n, 27));
+    let division_results = numbers.into_iter().map(|n| divide(n, 27)).collect();
+    division_results
 }
 
 // Complete the function and return a value of the correct type so the test
 // passes.
 // Desired output: [Ok(1), Ok(11), Ok(1426), Ok(3)]
-fn list_of_results() -> () {
+// list_of_results()函数返回一个Vec<Result<i32, DivisionError>>类型的变量
+// 函数一摸一样，为什么返回的类型不一样呢？
+// 因为map()函数的返回值类型是一个迭代器，而collect()函数的返回值类型是一个集合
+// 所以尽管map()和collect()函数的参数一样，但是返回值类型不一样，division_results的类型也就不一样
+fn list_of_results() -> Vec<Result<i32, DivisionError>> {
     let numbers = vec![27, 297, 38502, 81];
-    let division_results = numbers.into_iter().map(|n| divide(n, 27));
+    let division_results = numbers.into_iter().map(|n| divide(n, 27)).collect();
+    division_results
 }
+
+// 我们可以通过函数的返回值类型来决定division_results的类型，这样就可以在函数内部使用division_results的值了
 
 #[cfg(test)]
 mod tests {

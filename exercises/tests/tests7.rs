@@ -34,7 +34,12 @@
 // Execute `rustlings hint tests7` or use the `hint` watch subcommand for a
 // hint.
 
-// I AM NOT DONE
+// 我需要在build.rs中写一段代码，这段代码的作用是用来告诉cargo，我需要在编译的时候执行这段代码，
+// 这段代码的作用是用来检查环境变量TEST_FOO的值是否在一个合法的范围内，
+// 如果在合法的范围内，那么就编译通过，否则就编译失败
+
+
+
 
 fn main() {}
 

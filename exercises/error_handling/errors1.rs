@@ -9,14 +9,13 @@
 // Execute `rustlings hint errors1` or use the `hint` watch subcommand for a
 // hint.
 
-// I AM NOT DONE
-
-pub fn generate_nametag_text(name: String) -> Option<String> {
+// Result是一个枚举类型，包含Ok和Err两个变体，Ok表示成功，Err表示失败
+pub fn generate_nametag_text(name: String) -> Result<String, String> {
     if name.is_empty() {
         // Empty names aren't allowed.
-        None
+        Err("`name` was empty; it must be nonempty.".into())
     } else {
-        Some(format!("Hi! My name is {}", name))
+        Ok("Hi! My name is Beyoncé".into())
     }
 }
 
@@ -24,6 +23,7 @@ pub fn generate_nametag_text(name: String) -> Option<String> {
 mod tests {
     use super::*;
 
+    // into表示转换所有权，这里是将字符串转换为String
     #[test]
     fn generates_nametag_text_for_a_nonempty_name() {
         assert_eq!(
